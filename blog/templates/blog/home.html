@@ -13,21 +13,29 @@
         </div>
         <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
         <p class="article-content">{{ post.content }}</p>
-      <small style="float:inline-end"><a href="{% url 'post-detail' post.id %}">comments</a></small>
+        
+      
+      <small style="float:inline-end"><a href="{% url 'post-detail' post.id %}">{{post.total_comments}} Comments</a></small>
+     
     </div>
    <div>
+      {% if user.is_authenticated %}
       <form action="{% url 'like_post' post.pk %}" method="POST">
          {% csrf_token %}
          <button type="submit" , name="post_id" ,value={{post.id}} , class="btn btn-secondary mb-2 btn-sm"
             style='bottom:0'>
-            <i class="fa fa-angle-up" aria-hidden="true"></i></button>
+            <i class="fa fa-angle-up" aria-hidden="true"><br>{{post.total_likes}}</i></button>
       </form>
    
-      <form action="{% url 'like_post' post.pk %}"  method="POST">
+      <form action="{% url 'Dislike_post' post.pk %}"  method="POST">
          {% csrf_token %}
          <button type="submit" , name="post_id" ,value={{post.id}} , class="btn btn-secondary btn-sm "><i
-               class="fa fa-angle-down" aria-hidden="true"></i></button>
+               class="fa fa-angle-down" aria-hidden="true"><br>{{post.total_dislikes}}</i></button>
       </form>
+      {% else %}
+      <button class="btn btn-danger">{{post.total_likes}}<i class="fa fa-angle-up" aria-hidden="true"></i></button>
+      <button class="btn btn-danger">{{post.total_dislikes}}<i class="fa fa-angle-down" aria-hidden="true"></i></button>
+      {% endif %}
    </div>
 </article>
 {% endfor %}

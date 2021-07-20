@@ -18,6 +18,7 @@
 </head>
 
 <body>
+    
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
             <div class="container">
@@ -46,6 +47,7 @@
             </div>
         </nav>
     </header>
+  
     <main role="main" class="container">
         <div class="row">
             <div class="col-md-8">
@@ -59,7 +61,7 @@
                 {% block content %}{% endblock %}
             </div>
             <div class="col-md-4">
-                <div class="content-section">
+                <div class="content-section" >
                     <!-- <h3>Our Sidebar</h3> -->
                     <!-- <p class='text-muted'>You can put any information here you'd like. -->
                     <!-- <ul class="list-group"> -->
@@ -74,9 +76,9 @@
                     {% if user.is_authenticated  %}
                     
                     
-                    <div class="media" style="width:max-content height:max-content">
-                        <img class="rounded-circle account-img" src="{{user.profile.image.url}}">
-                        <div class="media-body mr-2">
+                    <div class="media" style="display:inline-block; height:max-content">
+                        <img class="rounded-circle account-img" style="border: 1px solid black;" src="{{user.profile.image.url}}">
+                        <div class="media-body mr-2" style=" display:inline-block;height:max-content">
                             <h3 >{{user.username}}</h3>
                             <p class="text-secondary">{{user.email}}</p>
                         </div>
@@ -85,19 +87,7 @@
                         {% csrf_token %}
                         <fieldset class="form-group">
                             <!-- <legend class="border-bottom mb-4">Profile</legend> -->
-                            <h5 class="mb-3">Your Posts</h5>
-                            {% for post in posts %}
-                              
-                                                             
-                                <div class="media-body">
-                                    
-                                     <h6><a class="article-title" href="{% url 'post-detail' post.id%}">{{post.title }}</a></h6> 
-                                    <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small> 
-                                   
                             
-                                </div>
-                            
-                            {% endfor %}
                             
                         </fieldset>
                         
@@ -106,10 +96,17 @@
                        <img src="https://media.giphy.com/media/XgMUfV5i9fTyzVxVE0/giphy.gif" style='width:100%'class="mb-2" >
                        <h3 class="ml-5 "><a  href="{% url 'register'%}" >Register today!</a></h3>
                     {% endif %}
+                    
                 </div>
             </div>
+            
         </div>
     </main>
+    <!-- <footer style="background-color:rgb(192, 16, 51);height:100px;opacity:0.5"> -->
+        <a href="#" id="giphy" >
+            <img src="https://media.giphy.com/media/1yn2njwLFcUra5z82F/giphy.gif" class="gif">
+        </a>
+    </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -121,7 +118,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-  
+    <script src="{% static 'blog/check.js' %}"></script>
 </body>
 
 </html>

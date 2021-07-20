@@ -2,6 +2,7 @@ body {
   background:url("./manga panel.jpg");
   color: #333333;
   margin-top: 5rem;
+  scroll-behavior: smooth;
 }
 
  h2, h3, h4, h5, h6 {
@@ -95,3 +96,10 @@ a.article-title:hover {
 .updown{
   
 }
+.gif{
+  position: fixed;
+  bottom: 0%;
+  
+  width: 100px;
+  height: 100px;
+} 

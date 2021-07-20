@@ -1,6 +1,6 @@
 from .models import Post
 
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import redirect, render,get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 
 from django.contrib.auth.models import User
@@ -76,11 +76,22 @@ class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin, DeleteView):
 
 
 def LikeView(request, pk):
-    print(request.POST.get('post_id'))
-    post = get_object_or_404(Post, id=request.POST.get('post_id'))
-    post.likes.add(request.user)
-    return HttpResponseRedirect(reverse('post_detail',args=[str(pk)]))
    
+    post = get_object_or_404(Post, pk=pk)
+    post.likes.add(request.user)
+    if post.dislikes.filter(id=request.user.id).exists():
+        post.dislikes.remove(request.user)
+    
+    return redirect('post-detail',pk=pk)
+
+
+def DisLikeView(request, pk):
+
+    post = get_object_or_404(Post, pk=pk)
+    post.dislikes.add(request.user)
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+    return redirect('post-detail', pk=pk)
 
 
 
