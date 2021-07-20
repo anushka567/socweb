@@ -1,0 +1,45 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<article class="media content-section">
+    <img crossorigin="anonymous" class="rounded-circle article-img" src="{{object.author.profile.image.url}}">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
+            <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+            {% if object.author == user %}
+            <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+            </div>
+            {% endif %}
+        </div>
+        <h2 class="article-title" >{{object.title }}</h2>
+        <p class="article-content">{{ object.content }}</p>
+       <ul style="list-style-type: none; display:inline-flex; margin-left:-7%;  ">      
+           <li  style="margin-right: 5px;"> <form action="{% url 'like_post' object.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" , name="post_id" ,value="{{object.id}}"" , class="btn btn-secondary mb-2 btn-sm"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
+           
+        </form></li>
+        
+       <li>
+         <form action="{% url 'like_post' object.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" , name="post_id" ,value= "{{object.id}}" , class="btn btn-secondary btn-sm "><i class="fa fa-angle-down" aria-hidden="true"></i></button>
+        </form>
+        </li>
+        
+</ul>
+
+  <small style="margin-left:95%">comments</small>
+    </div>
+    <br><br>
+    <a href="{% url 'blog-home' %}" class="btn btn-secondary mb-5">Back</a>
+    <br><br>
+    <hr><br>
+    <hr><hr>
+    
+</article>
+
+{% endblock content %}
